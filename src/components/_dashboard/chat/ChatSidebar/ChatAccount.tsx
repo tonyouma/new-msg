@@ -5,7 +5,7 @@ import BadgeStatus from '../../../BadgeStatus';
 const ChatAccount: React.FC<{}> =() => {
 
 
-  const [status, setStatus] = useState<
+  const [status] = useState<
     'online' | 'away' | 'busy' | 'unread' | 'offline' | 'invisible'
   >('online');
 

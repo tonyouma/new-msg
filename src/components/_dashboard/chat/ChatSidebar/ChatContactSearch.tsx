@@ -46,7 +46,7 @@ const AdornmentComponent = (props: any) => (
 
 const ChatContactSearch: React.FC<ChatContactSearchProps> = (props) => {
 
-  const { query, onChange, onFocus, onClickAway, ...other} = props
+  const { query, onChange, onFocus, onClickAway } = props
 
     const classes = useStyles();
 
