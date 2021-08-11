@@ -1,28 +1,65 @@
-export interface IChatContact {
+// ----------------------------------------------------------------------
+
+export type Contact = {
   id: string;
   name: string;
-  userName: string;
+  username: string;
   avatar: string;
   address: string;
-  phone: number;
+  phone: string;
   email: string;
-  recentActivity: Date;
+  lastActivity: number;
   status: string;
   position: string;
-}
+};
 
-export interface IChatMessage {
+export type Participant = {
+  id: string;
+  name: string;
+  username: string;
+  avatar: string;
+  address?: string;
+  phone?: string;
+  email?: string;
+  lastActivity?: Date;
+  status?: 'online' | 'offline' | 'away' | 'busy';
+  position?: string;
+};
+
+export type TextMessage = {
   id: string;
   body: string;
-  contentType: string;
+  contentType: 'text';
+  attachments: string[];
   createdAt: Date;
   senderId: string;
-}
+};
 
-export interface IChatConversation {
+export type ImageMessage = {
   id: string;
+  body: string;
+  contentType: 'image';
+  attachments: string[];
+  createdAt: Date;
+  senderId: string;
+};
+
+export type Message = TextMessage | ImageMessage;
+
+export type Conversation = {
+  id: string;
+  participants: Participant[];
+  type: string;
   unreadCount: number;
-  type: 'ONE_TO_ONE' | 'GROUP';
-  messages: Array<IChatMessage>;
-  participants: Partial<IChatContact>[];
-}
+  messages: Message[];
+};
+
+export type SendMessage = {
+  conversationId: string;
+  messageId: string;
+  message: string;
+  contentType: 'text';
+  attachments: string[];
+  createdAt: Date;
+  senderId: string;
+};

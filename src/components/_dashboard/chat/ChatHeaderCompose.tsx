@@ -7,7 +7,7 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import { useState } from 'react';
 // @types
-import { Participant } from '../../../types/chat';
+import { Participant } from '../../../models/chat';
 import SearchNotFound from '../../SearchNotFound';
 //
 // import { MChip } from '../../@material-extend';

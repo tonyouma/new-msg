@@ -3,7 +3,7 @@ import { Avatar, Box, Typography } from '@material-ui/core';
 import { experimentalStyled as styled } from '@material-ui/core/styles';
 import { formatDistanceToNowStrict } from 'date-fns';
 // @types
-import { Conversation, Message } from '../../../../types/chat';
+import { Conversation, Message } from '../../../../models/chat';
 
 // ----------------------------------------------------------------------
 

@@ -1,12 +1,12 @@
-import { Icon } from '@iconify/react';
-import pinFill from '@iconify/icons-eva/pin-fill';
-import phoneFill from '@iconify/icons-eva/phone-fill';
 import emailFill from '@iconify/icons-eva/email-fill';
+import phoneFill from '@iconify/icons-eva/phone-fill';
+import pinFill from '@iconify/icons-eva/pin-fill';
+import { Icon } from '@iconify/react';
+import { Avatar, DialogContent, Typography } from '@material-ui/core';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { Avatar, Typography, DialogContent } from '@material-ui/core';
 // @types
-import { Participant } from '../../../types/chat';
+import { Participant } from '../../../models/chat';
 import DialogAnimate from '../../animate/DialogAnimate';
 //
 // import { DialogAnimate } from '../../animate';

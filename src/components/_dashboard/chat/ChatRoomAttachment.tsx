@@ -1,16 +1,16 @@
-import { Icon } from '@iconify/react';
-import { uniq, flatten } from 'lodash';
-import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
+import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
+import { Icon } from '@iconify/react';
+import { Box, Button, Collapse, Divider, Typography } from '@material-ui/core';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { Box, Button, Divider, Collapse, Typography } from '@material-ui/core';
+import { flatten, uniq } from 'lodash';
+// @types
+import { Conversation, Message } from '../../../models/chat';
 // theme
 // // utils
 import { fDateTime } from '../../../utils/formatTime';
 import { getFileFullName, getFileThumb } from '../../../utils/getFileFormat';
-// @types
-import { Conversation, Message } from '../../../types/chat';
 //
 import Scrollbar from '../../Scrollbar';
 

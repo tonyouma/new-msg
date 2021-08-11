@@ -3,7 +3,7 @@ import {
   Avatar, List, ListItem, ListItemAvatar, ListItemText, Typography
 } from '@material-ui/core';
 // @types
-import { Contact } from '../../../../types/chat';
+import { Contact } from '../../../../models/chat';
 import SearchNotFound from '../../../SearchNotFound';
 //
 

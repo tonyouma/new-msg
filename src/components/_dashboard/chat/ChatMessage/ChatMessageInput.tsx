@@ -7,7 +7,7 @@ import { useRef, useState } from 'react';
 import { FilePlus as FileAdd, Mic, Paperclip as AttachIcon, Send as SendIcon } from "react-feather";
 import { ButtonComponent } from "../../..";
 // @types
-import { SendMessage } from '../../../../types/chat';
+import { SendMessage } from '../../../../models/chat';
 //
 import EmojiPicker from '../../../EmojiPicker';
 
@@ -141,3 +141,4 @@ export default function ChatMessageInput({
     </RootStyle>
   );
 }
+

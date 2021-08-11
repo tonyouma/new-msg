@@ -1,24 +1,18 @@
-import { Icon } from '@iconify/react';
-import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
+import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
+import { Icon } from '@iconify/react';
+import {
+  Avatar, Box, Button,
+  Collapse, List, ListItem, ListItemAvatar, ListItemText
+} from '@material-ui/core';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import {
-  Box,
-  List,
-  Avatar,
-  Button,
-  Collapse,
-  ListItem,
-  ListItemText,
-  ListItemAvatar
-} from '@material-ui/core';
 // theme
 // @types
-import { Participant as TParticipant } from '../../../types/chat';
+import { Participant as TParticipant } from '../../../models/chat';
+import BadgeStatus from '../../BadgeStatus';
 //
 import Scrollbar from '../../Scrollbar';
-import BadgeStatus from '../../BadgeStatus';
 import ChatRoomPopup from './ChatRoomPopup';
 
 // ----------------------------------------------------------------------

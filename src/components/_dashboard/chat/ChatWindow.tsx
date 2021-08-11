@@ -3,6 +3,8 @@ import { Box, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import { useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+// @types
+import { Conversation, Participant, SendMessage } from '../../../models/chat';
 // routes
 import {
   addRecipients, getConversation,
@@ -11,8 +13,6 @@ import {
 } from '../../../store/slices/chat';
 // redux
 import { RootState, useDispatch, useSelector } from '../../../store/store';
-// @types
-import { Conversation, Participant, SendMessage } from '../../../types/chat';
 import ChatHeaderCompose from './ChatHeaderCompose';
 import ChatHeaderDetail from './ChatHeaderDetail';
 import ChatMessageInput from './ChatMessage/ChatMessageInput';
@@ -23,7 +23,7 @@ import ChatRoom from './ChatRoom';
 // ----------------------------------------------------------------------
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     display: "flex",
@@ -54,14 +54,16 @@ const conversationSelector = (state: RootState): Conversation => {
     type: ''
   };
   return initState;
+  
 };
 
-export default function ChatWindow() {
+const ChatWindow: React.FC<{}> = () => {
     const classes = useStyles();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  
   const { conversationKey } = useParams();
   const { contacts, recipients, participants, activeConversationId } = useSelector(
     (state: RootState) => state.chat
@@ -71,6 +73,8 @@ export default function ChatWindow() {
   const displayParticipants = participants.filter(
     (item) => item.id !== '8864c717-587d-472a-929a-8e5f298024da-0'
   );
+
+
 
   useEffect(() => {
     const getDetails = async () => {
@@ -148,3 +152,5 @@ export default function ChatWindow() {
     </Box>
   );
 }
+
+export default ChatWindow;

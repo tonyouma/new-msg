@@ -1,15 +1,15 @@
-import { Icon } from '@iconify/react';
-import pinFill from '@iconify/icons-eva/pin-fill';
-import phoneFill from '@iconify/icons-eva/phone-fill';
-import emailFill from '@iconify/icons-eva/email-fill';
-import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
 import arrowIosDownwardFill from '@iconify/icons-eva/arrow-ios-downward-fill';
+import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
+import emailFill from '@iconify/icons-eva/email-fill';
+import phoneFill from '@iconify/icons-eva/phone-fill';
+import pinFill from '@iconify/icons-eva/pin-fill';
+import { Icon } from '@iconify/react';
+import { Avatar, Box, Button, Collapse, Divider, Typography } from '@material-ui/core';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { Box, Avatar, Button, Divider, Collapse, Typography } from '@material-ui/core';
 // theme
 // @types
-import { Participant } from '../../../types/chat';
+import { Participant } from '../../../models/chat';
 
 // ----------------------------------------------------------------------
 

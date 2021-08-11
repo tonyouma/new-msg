@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
 // material
 import { List, ListProps } from '@material-ui/core';
+import { useNavigate } from 'react-router-dom';
 // routes
 // @types
-import { Conversation } from '../../../../types/chat';
+import { Conversation } from '../../../../models/chat';
 //
 import ChatConversationItem from './ChatConversationItem';
 

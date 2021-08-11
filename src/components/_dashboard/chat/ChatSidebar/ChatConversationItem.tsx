@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/styles';
 import clsx from "clsx";
 import { formatDistanceToNowStrict } from 'date-fns';
 import { last } from 'lodash';
-import { Conversation } from '../../../../types/chat';
+import { Conversation } from '../../../../models/chat';
 import BadgeStatus from '../../../BadgeStatus';
 
 

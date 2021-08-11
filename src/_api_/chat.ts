@@ -2,8 +2,8 @@ import { dotCase } from 'change-case';
 import { sub } from 'date-fns';
 import faker from 'faker';
 import { isEmpty, sample, xor } from 'lodash';
+import { Contact, Conversation, Message } from '../models/chat';
 // @types
-import { Contact, Conversation, Message } from '../types/chat';
 import { mock } from '../utils/axios';
 // utils
 // import mock from './mock';

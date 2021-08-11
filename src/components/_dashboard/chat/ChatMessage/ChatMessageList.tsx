@@ -1,6 +1,6 @@
 import { findIndex } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
-import { Conversation } from '../../../../types/chat';
+import { Conversation } from '../../../../models/chat';
 import LightboxModal from '../../../LightboxModal';
 import Scrollbar from '../../../Scrollbar';
 import ChatMessageItem from './ChatMessageItem';

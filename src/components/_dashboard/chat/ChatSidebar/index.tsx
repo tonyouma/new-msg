@@ -7,10 +7,10 @@ import { experimentalStyled as styled, useTheme } from '@material-ui/core/styles
 import { useEffect, useState } from 'react';
 import { Edit3 as EditIcon } from 'react-feather';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+// @types
+import { Contact } from '../../../../models/chat';
 // redux
 import { RootState, useSelector } from '../../../../store/store';
-// @types
-import { Contact } from '../../../../types/chat';
 // utils
 import axios from '../../../../utils/axios';
 import Scrollbar from '../../../Scrollbar';

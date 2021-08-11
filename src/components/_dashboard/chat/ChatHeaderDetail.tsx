@@ -6,7 +6,7 @@ import { experimentalStyled as styled } from '@material-ui/core/styles';
 import { capitalCase } from 'change-case';
 import { Flag as FlagIcon, Share2 as ShareIcon, Trash2 as DeleteIcon } from "react-feather";
 // @types
-import { Participant } from '../../../types/chat';
+import { Participant } from '../../../models/chat';
 // utils
 import { fToNow } from '../../../utils/formatTime';
 //

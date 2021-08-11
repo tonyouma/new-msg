@@ -1,17 +1,17 @@
-import { Icon } from '@iconify/react';
-import { useState, useEffect } from 'react';
 import arrowIosBackFill from '@iconify/icons-eva/arrow-ios-back-fill';
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
+import { Icon } from '@iconify/react';
+import { Divider, IconButton, useMediaQuery } from '@material-ui/core';
 // material
-import { useTheme, experimentalStyled as styled } from '@material-ui/core/styles';
-import { useMediaQuery, Divider, IconButton } from '@material-ui/core';
+import { experimentalStyled as styled, useTheme } from '@material-ui/core/styles';
+import { useEffect, useState } from 'react';
+import { Conversation, Participant } from '../../../models/chat';
 // @types
 // import { Conversation, Participant } from '../../../types/chat';
 //
 import ChatRoomAttachment from './ChatRoomAttachment';
-import ChatRoomOneParticipant from './ChatRoomOneParticipant';
 import ChatRoomGroupParticipant from './ChatRoomGroupParticipant';
-import { Conversation, Participant } from '../../../types/chat';
+import ChatRoomOneParticipant from './ChatRoomOneParticipant';
 
 // ----------------------------------------------------------------------
 
