@@ -1,16 +1,14 @@
-import { Icon } from '@iconify/react';
-import { capitalCase } from 'change-case';
-import { Trash2 as DeleteIcon } from "react-feather";
-import { Flag as FlagIcon } from "react-feather";
-import { Share2 as ShareIcon } from "react-feather";
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
+import { Icon } from '@iconify/react';
+import { Avatar, AvatarGroup, Box, IconButton, Link, Typography } from '@material-ui/core';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { Box, Link, Avatar, Typography, AvatarGroup, IconButton } from '@material-ui/core';
-// utils
-import { fToNow } from '../../../utils/formatTime';
+import { capitalCase } from 'change-case';
+import { Flag as FlagIcon, Share2 as ShareIcon, Trash2 as DeleteIcon } from "react-feather";
 // @types
 import { Participant } from '../../../types/chat';
+// utils
+import { fToNow } from '../../../utils/formatTime';
 //
 import BadgeStatus from '../../BadgeStatus';
 
@@ -28,6 +26,7 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 function OneAvatar({ participants }: { participants: Participant[] }) {
   const participant = [...participants][0];
+  console.log(participant)
 
   if (participant === undefined || !participant.status) {
     return null;

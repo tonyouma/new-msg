@@ -1,9 +1,9 @@
-import { formatDistanceToNowStrict } from 'date-fns';
+import { Avatar, Box, Typography } from '@material-ui/core';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { Avatar, Box, Typography } from '@material-ui/core';
+import { formatDistanceToNowStrict } from 'date-fns';
 // @types
-import { Conversation, Message } from '../../../types/chat';
+import { Conversation, Message } from '../../../../types/chat';
 
 // ----------------------------------------------------------------------
 
@@ -65,7 +65,7 @@ export default function ChatMessageItem({
         style={{
           display: 'flex',
           ...(isMe && {
-            ml: 'auto'
+            marginLeft: 'auto'
           })
         }}
       >

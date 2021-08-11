@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { List, ListProps } from '@material-ui/core';
 // routes
 // @types
-import { Conversation } from '../../../types/chat';
+import { Conversation } from '../../../../types/chat';
 //
 import ChatConversationItem from './ChatConversationItem';
 

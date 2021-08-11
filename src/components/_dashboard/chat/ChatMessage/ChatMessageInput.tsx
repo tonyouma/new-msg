@@ -1,17 +1,15 @@
-import faker from 'faker';
-import { Icon } from '@iconify/react';
-import { useRef, useState } from 'react';
-import roundAddPhotoAlternate from '@iconify/icons-ic/round-add-photo-alternate';
-import { Send as SendIcon, Paperclip as AttachIcon, Mic, FilePlus as FileAdd } from "react-feather";
-import { ButtonComponent } from "../../../components";
+import { Box, IconButton, Input } from '@material-ui/core';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { Box, Input, Divider, IconButton, InputAdornment } from '@material-ui/core';
-// @types
-import { SendMessage } from '../../../types/chat';
-//
-import EmojiPicker from '../../EmojiPicker';
 import { makeStyles } from '@material-ui/styles';
+import faker from 'faker';
+import { useRef, useState } from 'react';
+import { FilePlus as FileAdd, Mic, Paperclip as AttachIcon, Send as SendIcon } from "react-feather";
+import { ButtonComponent } from "../../..";
+// @types
+import { SendMessage } from '../../../../types/chat';
+//
+import EmojiPicker from '../../../EmojiPicker';
 
 // ----------------------------------------------------------------------
 
@@ -138,7 +136,7 @@ export default function ChatMessageInput({
           Send
         </ButtonComponent>
 
-      {/* <input type="file" ref={fileInputRef} style={{ display: 'none' }} /> */}
+      <input type="file" ref={fileInputRef} style={{ display: 'none' }} />
       </Box>
     </RootStyle>
   );

@@ -1,32 +1,28 @@
-import { Icon } from '@iconify/react';
-import { useState, useEffect } from 'react';
-import editFill from '@iconify/icons-eva/edit-fill';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import arrowIosBackFill from '@iconify/icons-eva/arrow-ios-back-fill';
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
+import { Icon } from '@iconify/react';
+import { Box, IconButton, useMediaQuery } from '@material-ui/core';
 // material
-import { useTheme, experimentalStyled as styled } from '@material-ui/core/styles';
-import { Box, useMediaQuery } from '@material-ui/core';
+import { experimentalStyled as styled, useTheme } from '@material-ui/core/styles';
+import { useEffect, useState } from 'react';
+import { Edit3 as EditIcon } from 'react-feather';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // redux
-import { RootState, useSelector } from '../../../store/store';
-// utils
-import axios from '../../../utils/axios';
-// routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
+import { RootState, useSelector } from '../../../../store/store';
 // @types
-import { Contact } from '../../../types/chat';
-//
-import { MIconButton } from '../../@material-extend';
-import Scrollbar from '../../Scrollbar';
+import { Contact } from '../../../../types/chat';
+// utils
+import axios from '../../../../utils/axios';
+import Scrollbar from '../../../Scrollbar';
 import ChatAccount from './ChatAccount';
-import ChatSearchResults from './ChatSearchResults';
 import ChatContactSearch from './ChatContactSearch';
 import ChatConversationList from './ChatConversationList';
+import ChatSearchResults from './ChatSearchResults';
 
 // ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(({ theme }) => ({
-  width: 320,
+  width: 360,
   flexShrink: 0,
   display: 'flex',
   flexDirection: 'column',
@@ -89,7 +85,7 @@ export default function ChatSidebar() {
   const handleSearchSelect = (username: string) => {
     setSearchFocused(false);
     setSearchQuery('');
-    navigate(`${PATH_DASHBOARD.chat.root}/${username}`);
+    navigate(`${username}`);
   };
 
   const handleSelectContact = (result: Contact) => {
@@ -109,22 +105,21 @@ export default function ChatSidebar() {
             </>
           )}
 
-          <MIconButton onClick={() => setOpenSidebar(!openSidebar)}>
+          <IconButton onClick={() => setOpenSidebar(!openSidebar)}>
             <Icon
               width={20}
               height={20}
               icon={openSidebar ? arrowIosBackFill : arrowIosForwardFill}
             />
-          </MIconButton>
+          </IconButton>
 
           {openSidebar && (
-            <MIconButton
-              // @ts-ignore
+            <IconButton
               to="chat/new"
               component={RouterLink}
             >
-              <Icon icon={editFill} width={20} height={20} />
-            </MIconButton>
+              <EditIcon size='20'/>
+            </IconButton>
           )}
         </Box>
 

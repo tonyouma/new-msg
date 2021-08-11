@@ -1,15 +1,14 @@
-import { useState } from 'react';
-import { Icon } from '@iconify/react';
-import parse from 'autosuggest-highlight/parse';
-import match from 'autosuggest-highlight/match';
 import checkmarkFill from '@iconify/icons-eva/checkmark-fill';
+import { Icon } from '@iconify/react';
+import { Autocomplete, Avatar, Box, Chip, TextField, Typography } from '@material-ui/core';
 // material
-import { alpha, experimentalStyled as styled } from '@material-ui/core/styles';
-import { Box, Avatar, TextField, Typography, Autocomplete } from '@material-ui/core';
+import { experimentalStyled as styled } from '@material-ui/core/styles';
+import match from 'autosuggest-highlight/match';
+import parse from 'autosuggest-highlight/parse';
+import { useState } from 'react';
 // @types
 import { Participant } from '../../../types/chat';
-import SearchNotFound from '../../../views/ChatView/Sidebar/Search/SearchNotFound';
-import MChip from '../../@material-extend/MChip';
+import SearchNotFound from '../../SearchNotFound';
 //
 // import { MChip } from '../../@material-extend';
 // import SearchNotFound from '../../SearchNotFound';
@@ -105,12 +104,6 @@ export default function ChatHeaderCompose({
                       position: 'absolute',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      // bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
-                      // transition: (theme) =>
-                      //   theme.transitions.create('opacity', {
-                      //     easing: theme.transitions.easing.easeInOut,
-                      //     duration: theme.transitions.duration.shorter
-                      //   }),
                       ...(selected && {
                         opacity: 1,
                         color: 'primary.main'
@@ -137,8 +130,7 @@ export default function ChatHeaderCompose({
             recipients.map((recipient, index) => {
               const { name, avatar } = recipient;
               return (
-                // eslint-disable-next-line react/jsx-key
-                <MChip
+                <Chip
                   size="small"
                   label={name}
                   color="info"

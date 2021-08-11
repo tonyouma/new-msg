@@ -1,14 +1,13 @@
-import faker from 'faker';
-import { sub } from 'date-fns';
 import { dotCase } from 'change-case';
-import { sample, isEmpty, xor } from 'lodash';
+import { sub } from 'date-fns';
+import faker from 'faker';
+import { isEmpty, sample, xor } from 'lodash';
+// @types
+import { Contact, Conversation, Message } from '../types/chat';
+import { mock } from '../utils/axios';
 // utils
 // import mock from './mock';
-import { mockImgFeed, mockImgAvatar } from '../utils/mockImages';
-// @types
-import { Contact, Message, Conversation } from '../types/chat';
-import axios from 'axios';
-import { mock } from '../utils/axios';
+import { mockImgAvatar, mockImgFeed } from '../utils/mockImages';
 // import MockAdapter from 'axios-mock-adapter';
 
 // ----------------------------------------------------------------------
@@ -665,20 +664,20 @@ mock.onGet('/api/chat/contacts').reply(() => {
 
 // ----------------------------------------------------------------------
 
-// mock.onGet('/api/chat/search').reply((config) => {
-//   try {
-//     const { query } = config.params;
-//     let results: Contact[] = contacts;
-//     if (query) {
-//       const cleanQuery = query.toLowerCase().trim();
-//       results = results.filter((contact) => contact.name.toLowerCase().includes(cleanQuery));
-//     }
-//     return [200, { results }];
-//   } catch (error) {
-//     console.error(error);
-//     return [500, { message: 'Internal server error' }];
-//   }
-// });
+mock.onGet('/api/chat/search').reply((config) => {
+  try {
+    const { query } = config.params;
+    let results: Contact[] = contacts;
+    if (query) {
+      const cleanQuery = query.toLowerCase().trim();
+      results = results.filter((contact) => contact.name.toLowerCase().includes(cleanQuery));
+    }
+    return [200, { results }];
+  } catch (error) {
+    console.error(error);
+    return [500, { message: 'Internal server error' }];
+  }
+});
 
 // ----------------------------------------------------------------------
 

@@ -1,8 +1,7 @@
-import "./styles.css";
-import MessageView from "./views/ChatView";
 import { Provider } from "react-redux";
-import { store } from "./store/store";
 import { BrowserRouter as Router } from "react-router-dom";
+import { store } from "./store/store";
+import "./styles.css";
 import Chat from "./views/dashboard/Chat";
 
 export default function App() {

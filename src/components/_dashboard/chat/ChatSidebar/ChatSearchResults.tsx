@@ -1,15 +1,10 @@
 // material
 import {
-  List,
-  Avatar,
-  ListItem,
-  Typography,
-  ListItemText,
-  ListItemAvatar
+  Avatar, List, ListItem, ListItemAvatar, ListItemText, Typography
 } from '@material-ui/core';
 // @types
-import { Contact } from '../../../types/chat';
-import SearchNotFound from '../../../views/ChatView/Sidebar/Search/SearchNotFound';
+import { Contact } from '../../../../types/chat';
+import SearchNotFound from '../../../SearchNotFound';
 //
 
 // ----------------------------------------------------------------------

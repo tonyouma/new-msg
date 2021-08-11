@@ -1,11 +1,10 @@
 import { findIndex } from 'lodash';
-import { useEffect, useState, useRef } from 'react';
-// @types
-import { Conversation } from '../../../types/chat';
-//
-import Scrollbar from '../../Scrollbar';
-import LightboxModal from '../../LightboxModal';
+import { useEffect, useRef, useState } from 'react';
+import { Conversation } from '../../../../types/chat';
+import LightboxModal from '../../../LightboxModal';
+import Scrollbar from '../../../Scrollbar';
 import ChatMessageItem from './ChatMessageItem';
+
 
 // ----------------------------------------------------------------------
 
@@ -13,7 +12,8 @@ type ChatMessageListProps = {
   conversation: Conversation;
 };
 
-export default function ChatMessageList({ conversation }: ChatMessageListProps) {
+const ChatMessageList: React.FC<ChatMessageListProps> = (props) => {
+  const {conversation } = props
   const scrollRef = useRef<HTMLDivElement>(null);
   const [openLightbox, setOpenLightbox] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number>(0);
@@ -41,6 +41,7 @@ export default function ChatMessageList({ conversation }: ChatMessageListProps) 
   return (
     <Scrollbar scrollableNodeProps={{ ref: scrollRef }}>
       {conversation.messages.map((message) => (
+        
         <ChatMessageItem
           key={message.id}
           message={message}
@@ -59,3 +60,5 @@ export default function ChatMessageList({ conversation }: ChatMessageListProps) 
     </Scrollbar>
   );
 }
+
+export default ChatMessageList

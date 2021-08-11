@@ -1,15 +1,15 @@
-import { last } from 'lodash';
-import { formatDistanceToNowStrict } from 'date-fns';
-import clsx from "clsx";
-
+import { Avatar, Box, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { Box, Avatar, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core';
 // @types
-import { Conversation } from '../../../types/chat';
 //
-import BadgeStatus from '../../BadgeStatus';
 import { makeStyles } from '@material-ui/styles';
+import clsx from "clsx";
+import { formatDistanceToNowStrict } from 'date-fns';
+import { last } from 'lodash';
+import { Conversation } from '../../../../types/chat';
+import BadgeStatus from '../../../BadgeStatus';
+
 
 // ----------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ const AvatarWrapperStyle = styled('div')(({ theme }) => ({
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: "0 15px",
-    height: 85,
+    height: 75,
     // background: colors.white,
     boxShadow: "0px 0px 4px rgba(0, 0, 0, 0.07)",
     border: '1px solid #F2F2F2',

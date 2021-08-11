@@ -1,28 +1,24 @@
-import { useEffect } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
 // material
 import { Box, Divider } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
+import { useEffect } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+// routes
+import {
+  addRecipients, getConversation,
+  getParticipants,
+  markConversationAsRead, onSendMessage, resetActiveConversation
+} from '../../../store/slices/chat';
 // redux
 import { RootState, useDispatch, useSelector } from '../../../store/store';
-import {
-  addRecipients,
-  onSendMessage,
-  getConversation,
-  getParticipants,
-  markConversationAsRead,
-  resetActiveConversation
-} from '../../../store/slices/chat';
-// routes
-import { PATH_DASHBOARD } from '../../../routes/paths';
 // @types
 import { Conversation, Participant, SendMessage } from '../../../types/chat';
+import ChatHeaderCompose from './ChatHeaderCompose';
+import ChatHeaderDetail from './ChatHeaderDetail';
+import ChatMessageInput from './ChatMessage/ChatMessageInput';
+import ChatMessageList from './ChatMessage/ChatMessageList';
 //
 import ChatRoom from './ChatRoom';
-import ChatMessageList from './ChatMessageList';
-import ChatHeaderDetail from './ChatHeaderDetail';
-import ChatMessageInput from './ChatMessageInput';
-import ChatHeaderCompose from './ChatHeaderCompose';
-import { makeStyles } from '@material-ui/styles';
 
 // ----------------------------------------------------------------------
 
@@ -41,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     display: "flex",
     overflow: "hidden",
-    // padding: "15px 30px 15px 30px"
   }
 }));
 
@@ -84,7 +79,7 @@ export default function ChatWindow() {
         await dispatch(getConversation(conversationKey));
       } catch (error) {
         console.error(error);
-        navigate(PATH_DASHBOARD.chat.new);
+        navigate("/chat/new");
       }
     };
     if (conversationKey) {
