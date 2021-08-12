@@ -17,8 +17,6 @@ import ChatHeaderCompose from './ChatHeaderCompose';
 import ChatHeaderDetail from './ChatHeaderDetail';
 import ChatMessageInput from './ChatMessage/ChatMessageInput';
 import ChatMessageList from './ChatMessage/ChatMessageList';
-//
-import ChatRoom from './ChatRoom';
 
 // ----------------------------------------------------------------------
 
@@ -145,9 +143,9 @@ const ChatWindow: React.FC<{}> = () => {
           />
         </Box>
 </Box>
-        {mode === 'DETAIL' && (
+        {/* {mode === 'DETAIL' && (
           <ChatRoom conversation={conversation} participants={displayParticipants} />
-        )}
+        )} */}
       </Box>
     </Box>
   );

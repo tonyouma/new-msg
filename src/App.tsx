@@ -1,18 +1,17 @@
 import { Provider } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import Router from "./routes";
 import { store } from "./store/store";
 import "./styles.css";
-import Chat from "./views/dashboard/Chat";
 
 export default function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <Provider store={store}>
         <div className="App">
-          {/* <MessageView /> */}
-          <Chat />
+          <Router />
         </div>
       </Provider>
-    </Router>
+    </BrowserRouter>
   );
 }

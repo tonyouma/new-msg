@@ -66,7 +66,6 @@ const getDetails = (conversation: Conversation, currentUserId: string) => {
     (participant) => participant.id !== currentUserId
   );
   const displayNames = otherParticipants.map((participant) => participant.name).join(', ');
-
   let displayText = '';
   const lastMessage = conversation.messages[conversation.messages.length - 1];
   if (lastMessage) {
@@ -91,10 +90,10 @@ export default function ChatConversationItem({
   isOpenSidebar
 }: ChatConversationItemProps) {
   const details = getDetails(conversation, '8864c717-587d-472a-929a-8e5f298024da-0');
-
   const displayLastActivity = last(conversation.messages)?.createdAt || '';
   const isGroup = details.otherParticipants.length > 1;
   const isUnread = conversation.unreadCount > 0;
+
   const isOnlineGroup =
     isGroup && details.otherParticipants.map((item) => item.status).includes('online');
 

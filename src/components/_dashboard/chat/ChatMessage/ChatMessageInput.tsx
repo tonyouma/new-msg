@@ -50,11 +50,8 @@ type ChatMessageInputProps = {
   onSend: (data: SendMessage) => void;
 };
 
-export default function ChatMessageInput({
-  disabled,
-  conversationId,
-  onSend
-}: ChatMessageInputProps) {
+const ChatMessageInput: React.FC<ChatMessageInputProps> = (props ) => {
+ const { disabled, conversationId, onSend } = props;
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [message, setMessage] = useState('');
     const classes = useStyles();
@@ -113,13 +110,13 @@ export default function ChatMessageInput({
         endAdornment={
           <Box style={{display: 'flex'}}>
             <IconButton disabled={disabled} size="small" onClick={handleAttach}>
-              <FileAdd />
+              <FileAdd size="22"/>
             </IconButton>
             <IconButton disabled={disabled} size="small" onClick={handleAttach}>
-              <AttachIcon />
+              <AttachIcon size="22"/>
             </IconButton>
             <IconButton disabled={disabled} size="small">
-              <Mic />
+              <Mic size="22"/>
             </IconButton>
           </Box>
         }
@@ -141,4 +138,6 @@ export default function ChatMessageInput({
     </RootStyle>
   );
 }
+
+export default  ChatMessageInput
 

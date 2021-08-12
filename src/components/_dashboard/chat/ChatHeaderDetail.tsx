@@ -3,12 +3,9 @@ import { Icon } from '@iconify/react';
 import { Avatar, AvatarGroup, Box, IconButton, Link, Typography } from '@material-ui/core';
 // material
 import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { capitalCase } from 'change-case';
 import { Flag as FlagIcon, Share2 as ShareIcon, Trash2 as DeleteIcon } from "react-feather";
 // @types
 import { Participant } from '../../../models/chat';
-// utils
-import { fToNow } from '../../../utils/formatTime';
 //
 import BadgeStatus from '../../BadgeStatus';
 
@@ -26,8 +23,6 @@ const RootStyle = styled('div')(({ theme }) => ({
 
 function OneAvatar({ participants }: { participants: Participant[] }) {
   const participant = [...participants][0];
-  console.log(participant)
-
   if (participant === undefined || !participant.status) {
     return null;
   }
@@ -45,9 +40,7 @@ function OneAvatar({ participants }: { participants: Participant[] }) {
         <Typography variant="subtitle2">{participant.name}</Typography>
 
         <Typography variant="body2" style={{ color: 'text.secondary' }}>
-          {participant.status !== 'offline'
-            ? capitalCase(participant.status)
-            : fToNow(participant.lastActivity || '')}
+          {participant.position}
         </Typography>
       </Box>
     </Box>

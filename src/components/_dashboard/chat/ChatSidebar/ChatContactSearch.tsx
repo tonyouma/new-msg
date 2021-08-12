@@ -4,34 +4,33 @@ import {
 } from '@material-ui/core';
 // material
 import Icon from "@material-ui/core/Icon";
-import { makeStyles } from '@material-ui/styles';
 import { Search as SearchIcon } from "react-feather";
 import styled from "styled-components";
 
 // ----------------------------------------------------------------------
 
-const useStyles = makeStyles(() => ({
-  search: {
-    backgroundColor: "#fff",
-    borderRadius: 5,
-    fontSize: 16,
-    padding: "10px 15px",
-    boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.07)",
-    border: "none"
-  }
-}));
+// const useStyles = makeStyles(() => ({
+//   search: {
+//     backgroundColor: "#fff",
+//     borderRadius: 5,
+//     fontSize: 16,
+//     padding: "1px 15px",
+//     // boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.07)",
+//     border: "none"
+//   }
+// }));
 
 const StyledInput = styled(OutlinedInput)`
 background-color: #fff;
     border-radius: 5px;
     font-size: 16px;
     padding: 3px 15px;
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.07);
+    /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.07); */
     border: none
 `
 
 // ----------------------------------------------------------------------
-type ChatContactSearchProps = {
+type ISearchProps = {
   query: string;
   onChange: React.ChangeEventHandler;
   onFocus: VoidFunction;
@@ -44,11 +43,11 @@ const AdornmentComponent = (props: any) => (
   </InputAdornment>
 );
 
-const ChatContactSearch: React.FC<ChatContactSearchProps> = (props) => {
+const ChatContactSearch: React.FC<ISearchProps> = (props) => {
 
   const { query, onChange, onFocus, onClickAway } = props
 
-    const classes = useStyles();
+    // const classes = useStyles();
 
   return (
     <ClickAwayListener onClickAway={onClickAway}>
@@ -58,8 +57,8 @@ const ChatContactSearch: React.FC<ChatContactSearchProps> = (props) => {
             onFocus={onFocus}
             onChange={onChange}
             placeholder="Search contacts..."
-            className={classes.search}
-            startAdornment={<AdornmentComponent icon={<SearchIcon />} />}
+            // className={classes.search}
+            startAdornment={<AdornmentComponent icon={<SearchIcon size="20"/>} />}
           />
         </FormControl>
     </ClickAwayListener>

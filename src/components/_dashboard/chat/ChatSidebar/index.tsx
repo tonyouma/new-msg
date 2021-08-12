@@ -14,7 +14,6 @@ import { RootState, useSelector } from '../../../../store/store';
 // utils
 import axios from '../../../../utils/axios';
 import Scrollbar from '../../../Scrollbar';
-import ChatAccount from './ChatAccount';
 import ChatContactSearch from './ChatContactSearch';
 import ChatConversationList from './ChatConversationList';
 import ChatSearchResults from './ChatSearchResults';
@@ -100,8 +99,16 @@ export default function ChatSidebar() {
         <Box style={{ display: 'flex', alignItems: 'center' }}>
           {openSidebar && (
             <>
-              <ChatAccount />
-              <Box style={{ flexGrow: 1 }} />
+              {/* <ChatAccount /> */}
+              {openSidebar && (
+          <ChatContactSearch
+            query={searchQuery}
+            onFocus={handleSearchFocus}
+            onChange={handleChangeSearch}
+            onClickAway={handleClickAwaySearch}
+          />
+        )}
+              <Box style={{ flexGrow: 1, marginRight: 15 }} />
             </>
           )}
 
@@ -123,14 +130,7 @@ export default function ChatSidebar() {
           )}
         </Box>
 
-        {openSidebar && (
-          <ChatContactSearch
-            query={searchQuery}
-            onFocus={handleSearchFocus}
-            onChange={handleChangeSearch}
-            onClickAway={handleClickAwaySearch}
-          />
-        )}
+        
       </Box>
 
       <Scrollbar>
