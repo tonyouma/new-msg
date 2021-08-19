@@ -13,6 +13,7 @@ export default function Router() {
       
         {
           path: 'chat',
+          element: <Chat />
           children: [
             { path: '/', element: <Chat /> },
             { path: 'new', element: <Chat /> },
