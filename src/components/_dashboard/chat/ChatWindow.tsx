@@ -6,20 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 // @types
 import { Conversation, Participant, SendMessage } from "../../../models/chat";
-
 import {
   addRecipients,
   getConversation,
-  onSendMessage,
   getParticipants,
   markConversationAsRead,
   resetActiveConversation,
-} from "../../../store/slices/chat";
-// import {
-//   addRecipients, getConversation,
-//   getParticipants,
-//   markConversationAsRead, resetActiveConversation
-// } from '../../../store/actions/chat';
+} from "../../../store/actions/chat";
 // redux
 import { RootState } from "../../../store/store";
 import ChatHeaderCompose from "./ChatHeader/ChatHeaderCompose";
@@ -88,8 +81,7 @@ const ChatWindow: React.FC<{}> = () => {
     if (conversationKey) {
       getDetails();
     } else if (activeConversationId) {
-      // dispatch(resetActiveConversation(conversationKey));
-      dispatch(resetActiveConversation());
+      dispatch(resetActiveConversation(conversationKey));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationKey]);
@@ -105,7 +97,8 @@ const ChatWindow: React.FC<{}> = () => {
   };
 
   const handleSendMessage = (value: SendMessage) => {
-    dispatch(onSendMessage(value));
+    // dispatch(onSendMessage(value));
+    console.log("send message", value);
   };
 
   return (
