@@ -4,8 +4,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import ChatSidebar from "../../components/_dashboard/chat/ChatSidebar";
-import ChatWindow from "../../components/_dashboard/chat/ChatWindow";
-// import { getContacts, getConversations } from "../../store/slices/chat";
+import ChatWindow from "../../components/_dashboard/chat/ChatMessage";
 import { getContacts, getConversations } from "../../store/actions/chat";
 
 // redux

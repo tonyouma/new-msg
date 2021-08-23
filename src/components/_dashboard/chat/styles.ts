@@ -77,6 +77,25 @@ export const useStyles = makeStyles((theme) => ({
       "&:nth-child(2)": { top: 2, right: 0 },
     },
   },
+  autocompleteContainer: {
+    "& .MuiAutocomplete-root": {
+      minWidth: 280,
+      marginLeft: 16,
+      "&.Mui-focused .MuiAutocomplete-inputRoot": {
+        //
+      },
+    },
+    "& .MuiAutocomplete-inputRoot": {
+      // transition: theme.transitions.create("box-shadow", {
+      //   easing: theme.transitions.easing.easeInOut,
+      //   duration: theme.transitions.duration.shorter,
+      // }),
+      "& fieldset": {
+        borderWidth: `1px !important`,
+        // borderColor: `${theme.palette.grey[500_32]} !important`
+      },
+    },
+  },
 }));
 
 export const StyledSearchInput = styled(OutlinedInput)`
@@ -190,4 +209,10 @@ export const SidebarContainer = styled(Box)`
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+`;
+
+export const ComposeWrapper = styled(Box)`
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
 `;

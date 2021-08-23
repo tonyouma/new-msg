@@ -12,7 +12,7 @@ export const MARK_CONVERSATION_AS_READ = "MARK_CONVERSATION_AS_READ";
 export const HAS_ERROR = "HAS_ERROR";
 export const START_LOADING = "START_LOADING";
 
-export interface IChat {
+export interface IChatState {
   isLoading: boolean;
   error: boolean;
   contacts: {

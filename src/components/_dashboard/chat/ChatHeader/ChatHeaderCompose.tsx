@@ -16,34 +16,11 @@ import { useState } from "react";
 // @types
 import { Participant } from "../../../../models/chat";
 import SearchNotFound from "../../../SearchNotFound";
+import { ComposeWrapper, useStyles } from "../styles";
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(2, 3),
-}));
-
-const AutocompleteStyle = styled("div")(({ theme }) => ({
-  "& .MuiAutocomplete-root": {
-    minWidth: 280,
-    marginLeft: theme.spacing(2),
-    "&.Mui-focused .MuiAutocomplete-inputRoot": {
-      //
-    },
-  },
-  "& .MuiAutocomplete-inputRoot": {
-    transition: theme.transitions.create("box-shadow", {
-      easing: theme.transitions.easing.easeInOut,
-      duration: theme.transitions.duration.shorter,
-    }),
-    "& fieldset": {
-      borderWidth: `1px !important`,
-      // borderColor: `${theme.palette.grey[500_32]} !important`
-    },
-  },
-}));
+const StyledAutocomplete = styled("div")(({ theme }) => ({}));
 
 // ----------------------------------------------------------------------
 
@@ -56,6 +33,7 @@ type ChatHeaderComposeProps = {
 const ChatHeaderCompose: React.FC<ChatHeaderComposeProps> = (props) => {
   const { contacts, recipients, onAddRecipients } = props;
   const [query, setQuery] = useState("");
+  const classes = useStyles();
 
   const handleAddRecipient = (recipients: Participant[]) => {
     setQuery("");
@@ -63,12 +41,12 @@ const ChatHeaderCompose: React.FC<ChatHeaderComposeProps> = (props) => {
   };
 
   return (
-    <RootStyle>
+    <ComposeWrapper>
       <Typography variant="subtitle2" style={{ color: "text.secondary" }}>
         To:
       </Typography>
 
-      <AutocompleteStyle>
+      <Box className={classes.autocompleteContainer}>
         <Autocomplete
           multiple
           size="small"
@@ -148,8 +126,8 @@ const ChatHeaderCompose: React.FC<ChatHeaderComposeProps> = (props) => {
             />
           )}
         />
-      </AutocompleteStyle>
-    </RootStyle>
+      </Box>
+    </ComposeWrapper>
   );
 };
 

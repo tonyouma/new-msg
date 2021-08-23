@@ -5,7 +5,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 // @types
-import { Conversation, Participant, SendMessage } from "../../../models/chat";
+import {
+  Conversation,
+  Participant,
+  SendMessage,
+} from "../../../../models/chat";
 import {
   addRecipients,
   // onSendMessage,
@@ -13,14 +17,14 @@ import {
   getParticipants,
   markConversationAsRead,
   resetActiveConversation,
-} from "../../../store/actions/chat";
+} from "../../../../store/actions/chat";
 // redux
-import { RootState } from "../../../store/store";
-import ChatHeaderCompose from "./ChatHeader/ChatHeaderCompose";
-import ChatHeaderDetail from "./ChatHeader/ChatHeaderDetail";
-import ChatMessageInput from "./ChatMessage/ChatMessageInput";
-import ChatMessageList from "./ChatMessage/ChatMessageList";
-import { ChatWindowWrapper } from "./styles";
+import { RootState } from "../../../../store/store";
+import ChatHeaderCompose from "../ChatHeader/ChatHeaderCompose";
+import ChatHeaderDetail from "../ChatHeader/ChatHeaderDetail";
+import ChatMessageInput from "./ChatMessageInput";
+import ChatMessageList from "./ChatMessageList";
+import { ChatWindowWrapper } from "../styles";
 
 // ----------------------------------------------------------------------
 

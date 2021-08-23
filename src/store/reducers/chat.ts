@@ -5,7 +5,7 @@ import {
   GET_CONVERSATION_SUCCESS,
   GET_PARTICIPANTS,
   HAS_ERROR,
-  IChat,
+  IChatState,
   MARK_CONVERSATION_AS_READ,
   RESET_ACTIVE_CONVERSATION,
   START_LOADING,
@@ -23,7 +23,7 @@ import {
 //   return [...initialValue, allIds];
 // }
 
-const defaultState: IChat = {
+const defaultState: IChatState = {
   isLoading: false,
   error: false,
   contacts: { byId: {}, allIds: [] },
