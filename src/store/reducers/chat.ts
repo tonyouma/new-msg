@@ -11,12 +11,17 @@ import {
   START_LOADING,
 } from "../types/chat";
 
-function objFromArray(array: any[], key = "id") {
-  return array.reduce((accumulator, current) => {
-    accumulator[current[key]] = current;
-    return accumulator;
-  }, {});
-}
+// function objFromArray(array: any[], key = "id") {
+//   return array.reduce((accumulator, current) => {
+//     accumulator[current[key]] = current;
+//     return accumulator;
+//   }, {});
+// }
+
+// function mapIds(array: any[], initialValue = [], key = "id") {
+//   const allIds = array.map((item) => item[key]);
+//   return [...initialValue, allIds];
+// }
 
 const defaultState: IChat = {
   isLoading: false,
@@ -64,21 +69,36 @@ const chat = (state = defaultState, action: any) => {
       };
     }
     case GET_CONTACTS_SUCCESS:
-      const { byId, allIds } = objFromArray(action.payload.contacts, "id");
+      // const { byId, allIds } = objFromArray(action.payload.contacts, "id");
       return {
         ...state,
-        isLoading: false,
-        error: false,
-        contacts: { byId, allIds },
+        // isLoading: false,
+        // error: false,
+        contacts: {
+          ...state,
+          byId: action.payload.byId,
+          allIds: action.payload.allIds,
+        },
       };
-    case GET_CONVERSATIONS_SUCCESS:
+    //  normalize state byIds and allIds
+    case GET_CONVERSATIONS_SUCCESS: {
+      // const { byId, allIds } = objFromArray(action.payload.conversations, "id");
+      // return {
+      //   ...state,
+      //   isLoading: false,
+      //   error: false,
+      //   conversations: { byId, allIds },
+      // };
+
       return {
         ...state,
         conversations: {
-          byId: objFromArray(action.payload.conversations, "id"),
-          allIds: Object.keys(action.payload.conversations),
+          ...state.conversations,
+          byId: action.payload.byId,
+          allIds: action.payload.allIds,
         },
       };
+    }
     case GET_CONVERSATION_SUCCESS:
       const conversation = action.payload;
       const conversationId = conversation.id;

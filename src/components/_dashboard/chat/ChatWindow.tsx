@@ -8,6 +8,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Conversation, Participant, SendMessage } from "../../../models/chat";
 import {
   addRecipients,
+  // onSendMessage,
   getConversation,
   getParticipants,
   markConversationAsRead,
@@ -81,7 +82,7 @@ const ChatWindow: React.FC<{}> = () => {
     if (conversationKey) {
       getDetails();
     } else if (activeConversationId) {
-      dispatch(resetActiveConversation(conversationKey));
+      dispatch(resetActiveConversation());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationKey]);

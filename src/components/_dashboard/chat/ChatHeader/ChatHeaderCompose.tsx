@@ -1,44 +1,48 @@
-import checkmarkFill from '@iconify/icons-eva/checkmark-fill';
-import { Icon } from '@iconify/react';
-import { Autocomplete, Avatar, Box, Chip, TextField, Typography } from '@material-ui/core';
+import checkmarkFill from "@iconify/icons-eva/checkmark-fill";
+import { Icon } from "@iconify/react";
+import {
+  Autocomplete,
+  Avatar,
+  Box,
+  Chip,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 // material
-import { experimentalStyled as styled } from '@material-ui/core/styles';
-import match from 'autosuggest-highlight/match';
-import parse from 'autosuggest-highlight/parse';
-import { useState } from 'react';
+import { experimentalStyled as styled } from "@material-ui/core/styles";
+import match from "autosuggest-highlight/match";
+import parse from "autosuggest-highlight/parse";
+import { useState } from "react";
 // @types
-import { Participant } from '../../../../models/chat';
-import SearchNotFound from '../../../SearchNotFound';
-//
-// import { MChip } from '../../@material-extend';
-// import SearchNotFound from '../../SearchNotFound';
+import { Participant } from "../../../../models/chat";
+import SearchNotFound from "../../../SearchNotFound";
 
 // ----------------------------------------------------------------------
 
-const RootStyle = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(2, 3)
+const RootStyle = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(2, 3),
 }));
 
-const AutocompleteStyle = styled('div')(({ theme }) => ({
-  '& .MuiAutocomplete-root': {
+const AutocompleteStyle = styled("div")(({ theme }) => ({
+  "& .MuiAutocomplete-root": {
     minWidth: 280,
     marginLeft: theme.spacing(2),
-    '&.Mui-focused .MuiAutocomplete-inputRoot': {
-      // 
-    }
+    "&.Mui-focused .MuiAutocomplete-inputRoot": {
+      //
+    },
   },
-  '& .MuiAutocomplete-inputRoot': {
-    transition: theme.transitions.create('box-shadow', {
+  "& .MuiAutocomplete-inputRoot": {
+    transition: theme.transitions.create("box-shadow", {
       easing: theme.transitions.easing.easeInOut,
-      duration: theme.transitions.duration.shorter
+      duration: theme.transitions.duration.shorter,
     }),
-    '& fieldset': {
+    "& fieldset": {
       borderWidth: `1px !important`,
       // borderColor: `${theme.palette.grey[500_32]} !important`
-    }
-  }
+    },
+  },
 }));
 
 // ----------------------------------------------------------------------
@@ -50,21 +54,17 @@ type ChatHeaderComposeProps = {
 };
 
 const ChatHeaderCompose: React.FC<ChatHeaderComposeProps> = (props) => {
-  const {
-    contacts,
-    recipients,
-    onAddRecipients
-  } = props;
-  const [query, setQuery] = useState('');
+  const { contacts, recipients, onAddRecipients } = props;
+  const [query, setQuery] = useState("");
 
   const handleAddRecipient = (recipients: Participant[]) => {
-    setQuery('');
+    setQuery("");
     onAddRecipients(recipients);
   };
 
   return (
     <RootStyle>
-      <Typography variant="subtitle2" style={{ color: 'text.secondary' }}>
+      <Typography variant="subtitle2" style={{ color: "text.secondary" }}>
         To:
       </Typography>
 
@@ -89,9 +89,9 @@ const ChatHeaderCompose: React.FC<ChatHeaderComposeProps> = (props) => {
                   style={{
                     width: 32,
                     height: 32,
-                    overflow: 'hidden',
-                    borderRadius: '50%',
-                    position: 'relative'
+                    overflow: "hidden",
+                    borderRadius: "50%",
+                    position: "relative",
                   }}
                 >
                   <Avatar alt={name} src={avatar} />
@@ -99,16 +99,16 @@ const ChatHeaderCompose: React.FC<ChatHeaderComposeProps> = (props) => {
                     style={{
                       top: 0,
                       opacity: 0,
-                      width: '100%',
-                      height: '100%',
-                      display: 'flex',
-                      position: 'absolute',
-                      alignItems: 'center',
-                      justifyContent: 'center',
+                      width: "100%",
+                      height: "100%",
+                      display: "flex",
+                      position: "absolute",
+                      alignItems: "center",
+                      justifyContent: "center",
                       ...(selected && {
                         opacity: 1,
-                        color: 'primary.main'
-                      })
+                        color: "primary.main",
+                      }),
                     }}
                   >
                     <Icon icon={checkmarkFill} width={20} height={20} />
@@ -119,7 +119,7 @@ const ChatHeaderCompose: React.FC<ChatHeaderComposeProps> = (props) => {
                   <Typography
                     key={index}
                     variant="subtitle2"
-                    color={part.highlight ? 'primary' : 'textPrimary'}
+                    color={part.highlight ? "primary" : "textPrimary"}
                   >
                     {part.text}
                   </Typography>
@@ -142,13 +142,15 @@ const ChatHeaderCompose: React.FC<ChatHeaderComposeProps> = (props) => {
             })
           }
           renderInput={(params) => (
-            <TextField {...params} placeholder={recipients.length === 0 ? 'Recipients' : ''} />
+            <TextField
+              {...params}
+              placeholder={recipients.length === 0 ? "Recipients" : ""}
+            />
           )}
         />
       </AutocompleteStyle>
     </RootStyle>
   );
-}
+};
 
-
-export default ChatHeaderCompose
+export default ChatHeaderCompose;

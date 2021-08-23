@@ -1,8 +1,9 @@
 // / action creators
 import { AxiosError, AxiosResponse } from "axios";
-import { Conversation, Participant } from "../../models/chat";
+import { Conversation, Participant, Contact } from "../../models/chat";
 import chatApiService from "../../services/api/chat";
 import "../../_api_";
+import { normalize, schema } from "normalizr";
 import { dispatch } from "../store";
 import {
   ADD_RECIPIENTS,
@@ -12,53 +13,69 @@ import {
   GET_PARTICIPANTS,
   HAS_ERROR,
   MARK_CONVERSATION_AS_READ,
-  ON_SEND_MESSAGE,
+  // ON_SEND_MESSAGE,
   RESET_ACTIVE_CONVERSATION,
   START_LOADING,
 } from "../types/chat";
 
 // // GET PARTICIPANTS
-// export function getParticipantsSuccess(participants: Participant) {
-//     return {
-//         type: GET_PARTICIPANTS,
-//         payload: participants
-//     };
-// }
+export function getParticipantsSuccess(participants: Participant[]) {
+  return {
+    type: GET_PARTICIPANTS,
+    payload: participants,
+  };
+}
+const conversationSchema = new schema.Entity("conversations");
+const conversationList = [conversationSchema];
 
-// export const getConversationsSuccess = (conversations: Conversation[]) => {
-//     return {
-//         type: GET_CONVERSATIONS_SUCCESS,
-//         payload: {
-//             conversations
-//         }
-//     }
-// }
+const contactSchema = new schema.Entity("contacts");
+const contactList = [contactSchema];
 
-// export const getConversationSuccess = (conversation: Conversation) => {
+export const getConversationsSuccess = (conversations: Conversation) => {
+  const normalizedConversations = normalize(conversations, conversationList);
 
-//     return {
-//         type: GET_CONVERSATION_SUCCESS,
-//         payload: {
-//             conversation
-//         }
-//     }
-// }
+  return {
+    type: GET_CONVERSATIONS_SUCCESS,
+    payload: {
+      byId: normalizedConversations.entities.conversations,
+      allIds: normalizedConversations.result,
+    },
+  };
+};
 
-// export const onSendMessage = (conversation: Conversation) => {
-//     return {
-//         type: ON_SEND_MESSAGE,
-//         payload: {
-//             conversation
-//         }
-//     }
-// }
+export const getContactsSuccess = (contacts: Contact) => {
+  const normalizedContacts = normalize(contacts, contactList);
 
-export const resetActiveConversation = (conversationId: string) => {
+  return {
+    type: GET_CONTACTS_SUCCESS,
+    payload: {
+      byId: normalizedContacts.entities.contacts,
+      allIds: normalizedContacts.result,
+    },
+  };
+};
+
+export const getConversationSuccess = (conversation: Conversation) => {
+  return {
+    type: GET_CONVERSATION_SUCCESS,
+    payload: {
+      conversation,
+    },
+  };
+};
+
+// export const onSendMessage = (conversation: Message) => {
+//   return {
+//     type: ON_SEND_MESSAGE,
+//     payload: {
+//       conversation,
+//     },
+//   };
+// };
+
+export const resetActiveConversation = () => {
   return {
     type: RESET_ACTIVE_CONVERSATION,
-    payload: {
-      conversationId,
-    },
   };
 };
 
@@ -94,10 +111,7 @@ export function getContacts() {
     await chatApiService
       .getContacts()
       .then((response: AxiosResponse) => {
-        dispatch({
-          type: GET_CONTACTS_SUCCESS,
-          payload: response.data.contacts,
-        });
+        dispatch(getContactsSuccess(response.data.contacts));
       })
       .catch((error: AxiosError) =>
         dispatch({ type: HAS_ERROR, payload: error })
@@ -113,10 +127,8 @@ export function getConversations() {
     await chatApiService
       .getConversations()
       .then((response: AxiosResponse) => {
-        dispatch({
-          type: GET_CONVERSATIONS_SUCCESS,
-          payload: response.data.conversations,
-        });
+        console.log(response);
+        dispatch(getConversationsSuccess(response.data.conversations));
       })
       .catch((error: AxiosError) =>
         dispatch({ type: HAS_ERROR, payload: error })
@@ -167,10 +179,7 @@ export function getParticipants(conversationKey: string) {
     await chatApiService
       .getParticipants(conversationKey)
       .then((response) => {
-        dispatch({
-          type: GET_PARTICIPANTS,
-          payload: response.data.participants,
-        });
+        dispatch(getParticipantsSuccess(response.data.participants));
       })
       .catch((error: AxiosError) =>
         dispatch({ type: HAS_ERROR, payload: error })
