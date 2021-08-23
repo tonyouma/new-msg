@@ -1,45 +1,36 @@
-import arrowIosBackFill from '@iconify/icons-eva/arrow-ios-back-fill';
-import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
-import { Icon } from '@iconify/react';
-import { Box, IconButton, useMediaQuery } from '@material-ui/core';
+import arrowIosBackFill from "@iconify/icons-eva/arrow-ios-back-fill";
+import arrowIosForwardFill from "@iconify/icons-eva/arrow-ios-forward-fill";
+import { Icon } from "@iconify/react";
+import { Box, IconButton, useMediaQuery } from "@material-ui/core";
 // material
-import { experimentalStyled as styled, useTheme } from '@material-ui/core/styles';
-import { useEffect, useState } from 'react';
-import { Edit3 as EditIcon } from 'react-feather';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useTheme } from "@material-ui/core/styles";
+import { useEffect, useState } from "react";
+import { Edit3 as EditIcon } from "react-feather";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 // @types
-import { Contact } from '../../../../models/chat';
+import { Contact } from "../../../../models/chat";
 // redux
-import { RootState, useSelector } from '../../../../store/store';
+import { RootState, useSelector } from "../../../../store/store";
 // utils
-import axios from '../../../../utils/axios';
-import Scrollbar from '../../../Scrollbar';
-import ChatContactSearch from './ChatContactSearch';
-import ChatConversationList from './ChatConversationList';
-import ChatSearchResults from './ChatSearchResults';
+import axios from "../../../../utils/axios";
+import Scrollbar from "../../../Scrollbar";
+import { SidebarContainer } from "../styles";
+import ChatContactSearch from "./ChatContactSearch";
+import ChatConversationList from "./ChatConversationList";
+import ChatSearchResults from "./ChatSearchResults";
 
-// ----------------------------------------------------------------------
-
-const RootStyle = styled('div')(({ theme }) => ({
-  width: 360,
-  flexShrink: 0,
-  display: 'flex',
-  flexDirection: 'column',
-  transition: theme.transitions.create('width'),
-}));
-
-// ----------------------------------------------------------------------
-
-export default function ChatSidebar() {
+const ChatSidebar: React.FC<{}> = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [openSidebar, setOpenSidebar] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchFocused, setSearchFocused] = useState(false);
   const displayResults = searchQuery && isSearchFocused;
-  const { conversations, activeConversationId } = useSelector((state: RootState) => state.chat);
+  const { conversations, activeConversationId } = useSelector(
+    (state: RootState) => state.chat
+  );
 
   useEffect(() => {
     if (isMobile) {
@@ -57,16 +48,18 @@ export default function ChatSidebar() {
 
   const handleClickAwaySearch = () => {
     setSearchFocused(false);
-    setSearchQuery('');
+    setSearchQuery("");
   };
 
-  const handleChangeSearch = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeSearch = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     try {
       const { value } = event.target;
       setSearchQuery(value);
       if (value) {
-        const response = await axios.get('/api/chat/search', {
-          params: { query: value }
+        const response = await axios.get("/api/chat/search", {
+          params: { query: value },
         });
         setSearchResults(response.data.results);
       } else {
@@ -83,8 +76,8 @@ export default function ChatSidebar() {
 
   const handleSearchSelect = (username: string) => {
     setSearchFocused(false);
-    setSearchQuery('');
-    navigate(`${username}`);
+    setSearchQuery("");
+    navigate(`/chat/${username}`);
   };
 
   const handleSelectContact = (result: Contact) => {
@@ -94,20 +87,19 @@ export default function ChatSidebar() {
   };
 
   return (
-    <RootStyle style={{ ...(!openSidebar && { width: 96 }) }}>
-      <Box style={{  }}>
-        <Box style={{ display: 'flex', alignItems: 'center' }}>
+    <SidebarContainer style={{ ...(!openSidebar && { width: 80 }) }}>
+      <Box style={{}}>
+        <Box style={{ display: "flex", alignItems: "center" }}>
           {openSidebar && (
             <>
-              {/* <ChatAccount /> */}
               {openSidebar && (
-          <ChatContactSearch
-            query={searchQuery}
-            onFocus={handleSearchFocus}
-            onChange={handleChangeSearch}
-            onClickAway={handleClickAwaySearch}
-          />
-        )}
+                <ChatContactSearch
+                  query={searchQuery}
+                  onFocus={handleSearchFocus}
+                  onChange={handleChangeSearch}
+                  onClickAway={handleClickAwaySearch}
+                />
+              )}
               <Box style={{ flexGrow: 1, marginRight: 15 }} />
             </>
           )}
@@ -121,16 +113,11 @@ export default function ChatSidebar() {
           </IconButton>
 
           {openSidebar && (
-            <IconButton
-              to="chat/new"
-              component={RouterLink}
-            >
-              <EditIcon size='20'/>
+            <IconButton to="/chat/new" component={RouterLink}>
+              <EditIcon size="20" />
             </IconButton>
           )}
         </Box>
-
-        
       </Box>
 
       <Scrollbar>
@@ -139,7 +126,7 @@ export default function ChatSidebar() {
             conversations={conversations}
             isOpenSidebar={openSidebar}
             activeConversationId={activeConversationId}
-            style={{ ...(isSearchFocused && { display: 'none' }) }}
+            style={{ ...(isSearchFocused && { display: "none" }) }}
           />
         ) : (
           <ChatSearchResults
@@ -149,6 +136,8 @@ export default function ChatSidebar() {
           />
         )}
       </Scrollbar>
-    </RootStyle>
+    </SidebarContainer>
   );
-}
+};
+
+export default ChatSidebar;

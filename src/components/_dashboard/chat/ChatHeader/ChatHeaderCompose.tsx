@@ -7,8 +7,8 @@ import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
 import { useState } from 'react';
 // @types
-import { Participant } from '../../../models/chat';
-import SearchNotFound from '../../SearchNotFound';
+import { Participant } from '../../../../models/chat';
+import SearchNotFound from '../../../SearchNotFound';
 //
 // import { MChip } from '../../@material-extend';
 // import SearchNotFound from '../../SearchNotFound';
@@ -49,11 +49,12 @@ type ChatHeaderComposeProps = {
   onAddRecipients: (data: Participant[]) => void;
 };
 
-export default function ChatHeaderCompose({
-  contacts,
-  recipients,
-  onAddRecipients
-}: ChatHeaderComposeProps) {
+const ChatHeaderCompose: React.FC<ChatHeaderComposeProps> = (props) => {
+  const {
+    contacts,
+    recipients,
+    onAddRecipients
+  } = props;
   const [query, setQuery] = useState('');
 
   const handleAddRecipient = (recipients: Participant[]) => {
@@ -148,3 +149,6 @@ export default function ChatHeaderCompose({
     </RootStyle>
   );
 }
+
+
+export default ChatHeaderCompose

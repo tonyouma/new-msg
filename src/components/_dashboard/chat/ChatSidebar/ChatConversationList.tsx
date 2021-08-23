@@ -1,13 +1,7 @@
-// material
 import { List, ListProps } from '@material-ui/core';
 import { useNavigate } from 'react-router-dom';
-// routes
-// @types
 import { Conversation } from '../../../../models/chat';
-//
 import ChatConversationItem from './ChatConversationItem';
-
-// ----------------------------------------------------------------------
 
 interface ChatConversationListProps extends ListProps {
   conversations: { byId: Record<string, Conversation>; allIds: string[] };
@@ -15,12 +9,8 @@ interface ChatConversationListProps extends ListProps {
   activeConversationId: string | null;
 }
 
-export default function ChatConversationList({
-  conversations,
-  isOpenSidebar,
-  activeConversationId,
-  ...other
-}: ChatConversationListProps) {
+const ChatConversationList: React.FC<ChatConversationListProps> = (props) => {
+  const { conversations, isOpenSidebar, activeConversationId, ...other } = props;
   const navigate = useNavigate();
 
   const handleSelectConversation = (conversationId: string) => {
@@ -36,7 +26,7 @@ export default function ChatConversationList({
         conversationKey = otherParticipant?.username;
       }
     }
-    navigate(`${conversationKey}`);
+    navigate(`/chat/${conversationKey}`);
   };
 
   return (
@@ -53,3 +43,5 @@ export default function ChatConversationList({
     </List>
   );
 }
+
+export default ChatConversationList

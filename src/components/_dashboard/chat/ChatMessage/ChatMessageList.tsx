@@ -1,3 +1,4 @@
+import { Box } from '@material-ui/core';
 import { findIndex } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
 import { Conversation } from '../../../../models/chat';
@@ -5,15 +6,12 @@ import LightboxModal from '../../../LightboxModal';
 import Scrollbar from '../../../Scrollbar';
 import ChatMessageItem from './ChatMessageItem';
 
-
-// ----------------------------------------------------------------------
-
-type ChatMessageListProps = {
+type IConversationListProps = {
   conversation: Conversation;
 };
 
-const ChatMessageList: React.FC<ChatMessageListProps> = (props) => {
-  const {conversation } = props
+const ChatMessageList: React.FC<IConversationListProps> = (props) => {
+  const { conversation } = props
   const scrollRef = useRef<HTMLDivElement>(null);
   const [openLightbox, setOpenLightbox] = useState(false);
   const [selectedImage, setSelectedImage] = useState<number>(0);
@@ -40,23 +38,25 @@ const ChatMessageList: React.FC<ChatMessageListProps> = (props) => {
 
   return (
     <Scrollbar scrollableNodeProps={{ ref: scrollRef }}>
-      {conversation.messages.map((message) => (
-        
-        <ChatMessageItem
-          key={message.id}
-          message={message}
-          conversation={conversation}
-          onOpenLightbox={handleOpenLightbox}
-        />
-      ))}
+      <Box style={{ margin: 30 }}>
+        {conversation.messages.map((message) => (
 
-      <LightboxModal
-        images={images}
-        photoIndex={selectedImage}
-        setPhotoIndex={setSelectedImage}
-        isOpen={openLightbox}
-        onClose={() => setOpenLightbox(false)}
-      />
+          <ChatMessageItem
+            key={message.id}
+            message={message}
+            conversation={conversation}
+            onOpenLightbox={handleOpenLightbox}
+          />
+        ))}
+
+        <LightboxModal
+          images={images}
+          photoIndex={selectedImage}
+          setPhotoIndex={setSelectedImage}
+          isOpen={openLightbox}
+          onClose={() => setOpenLightbox(false)}
+        />
+      </Box>
     </Scrollbar>
   );
 }

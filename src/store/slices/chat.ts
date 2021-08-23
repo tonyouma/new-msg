@@ -1,16 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-// utils
-// import axios from '../../utils/axios';
-// @types
-import { Conversation, Participant } from '../../models/chat';
-import { axiosInstance } from '../../utils/axios';
-import '../../_api_';
-import { dispatch } from '../store';
+import { createSlice } from "@reduxjs/toolkit";
+import { AxiosError, AxiosResponse } from "axios";
+import { Conversation, Participant } from "../../models/chat";
+import chatApiService from "../../services/api/chat";
+import "../../_api_";
+import { dispatch } from "../store";
 
 // ----------------------------------------------------------------------
 
-function objFromArray(array: any[], key = 'id') {
+function objFromArray(array: any[], key = "id") {
   return array.reduce((accumulator, current) => {
     accumulator[current[key]] = current;
     return accumulator;
@@ -40,26 +37,32 @@ const initialState: ChatState = {
   conversations: { byId: {}, allIds: [] },
   activeConversationId: null,
   participants: [],
-  recipients: []
+  recipients: [],
 };
 
 const slice = createSlice({
-  name: 'chat',
+  name: "chat",
   initialState,
   reducers: {
     // START LOADING
-    startLoading(state) {
-      state.isLoading = true;
+    STARTLOADING: (state) => {
+      return {
+        ...state,
+        isLoading: true,
+      };
     },
 
     // HAS ERROR
-    hasError(state, action) {
-      state.isLoading = false;
-      state.error = action.payload;
+    HAS_ERROR: (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
     },
 
     // GET CONTACT SSUCCESS
-    getContactsSuccess(state, action) {
+    GET_CONTACTS_SUCCESS: (state, action) => {
       const contacts = action.payload;
 
       state.contacts.byId = objFromArray(contacts);
@@ -67,7 +70,8 @@ const slice = createSlice({
     },
 
     // GET CONVERSATIONS
-    getConversationsSuccess(state, action) {
+    // rewires the state to include the new conversations
+    GET_CONVERSATIONS: (state, action) => {
       const conversations = action.payload;
 
       state.conversations.byId = objFromArray(conversations);
@@ -75,18 +79,21 @@ const slice = createSlice({
     },
 
     // GET CONVERSATION
-    getConversationSuccess(state, action) {
+    GET_CONVERSATION: (state, action) => {
       const conversation = action.payload;
+      const conversationId = conversation.id;
 
-      if (conversation) {
-        state.conversations.byId[conversation.id] = conversation;
-        state.activeConversationId = conversation.id;
-        if (!state.conversations.allIds.includes(conversation.id)) {
-          state.conversations.allIds.push(conversation.id);
-        }
-      } else {
-        state.activeConversationId = null;
-      }
+      return {
+        ...state,
+        conversations: {
+          ...state.conversations,
+          byId: {
+            ...state.conversations.byId,
+            [conversationId]: conversation,
+          },
+        },
+        activeConversationId: conversationId,
+      };
     },
 
     // ON SEND MESSAGE
@@ -99,7 +106,7 @@ const slice = createSlice({
         contentType,
         attachments,
         createdAt,
-        senderId
+        senderId,
       } = conversation;
 
       const newMessage = {
@@ -108,55 +115,71 @@ const slice = createSlice({
         contentType,
         attachments,
         createdAt,
-        senderId
+        senderId,
       };
 
       state.conversations.byId[conversationId].messages.push(newMessage);
     },
 
-    markConversationAsReadSuccess(state, action) {
-      const { conversationId } = action.payload;
-      const conversation = state.conversations.byId[conversationId];
-      if (conversation) {
-        conversation.unreadCount = 0;
-      }
+    MARK_CONVERSATION_AS_READ: (state, action) => {
+      return {
+        ...state,
+        conversations: {
+          ...state.conversations,
+          byId: {
+            ...state.conversations.byId,
+            [action.payload.conversationId]: {
+              ...state.conversations.byId[action.payload.conversationId],
+              unreadCount: 0,
+            },
+          },
+        },
+      };
     },
 
     // GET PARTICIPANTS
-    getParticipantsSuccess(state, action) {
-      const participants = action.payload;
-      state.participants = participants;
+    GET_PARTICIPANTS: (state, action) => {
+      return {
+        ...state,
+        participants: action.payload,
+      };
     },
 
     // RESET ACTIVE CONVERSATION
     resetActiveConversation(state) {
-      state.activeConversationId = null;
+      return {
+        ...state,
+        activeConversationId: null,
+      };
     },
 
     addRecipients(state, action) {
-      const recipients = action.payload;
-      state.recipients = recipients;
-    }
-  }
+      return {
+        ...state,
+        recipients: action.payload,
+      };
+    },
+  },
 });
 
 // Reducer
 export default slice.reducer;
 
 // Actions
-export const { addRecipients, onSendMessage, resetActiveConversation } = slice.actions;
+export const { addRecipients, onSendMessage, resetActiveConversation } =
+  slice.actions;
 
 // ----------------------------------------------------------------------
 
 export function getContacts() {
   return async () => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const response = await axios.get('/api/chat/contacts');
-      dispatch(slice.actions.getContactsSuccess(response.data.contacts));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-    }
+    dispatch(slice.actions.STARTLOADING());
+    await chatApiService
+      .getContacts()
+      .then((response: AxiosResponse) => {
+        dispatch(slice.actions.GET_CONTACTS_SUCCESS(response.data.contacts));
+      })
+      .catch((error: AxiosError) => dispatch(slice.actions.HAS_ERROR(error)));
   };
 }
 
@@ -164,13 +187,13 @@ export function getContacts() {
 
 export function getConversations() {
   return async () => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const response = await axiosInstance.get('/api/chat/conversations');
-      dispatch(slice.actions.getConversationsSuccess(response.data.conversations));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-    }
+    dispatch(slice.actions.STARTLOADING());
+    await chatApiService
+      .getConversations()
+      .then((response: AxiosResponse) => {
+        dispatch(slice.actions.GET_CONVERSATIONS(response.data.conversations));
+      })
+      .catch((error: AxiosError) => dispatch(slice.actions.HAS_ERROR(error)));
   };
 }
 
@@ -178,15 +201,13 @@ export function getConversations() {
 
 export function getConversation(conversationKey: string) {
   return async () => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const response = await axiosInstance.get('/api/chat/conversation', {
-        params: { conversationKey }
-      });
-      dispatch(slice.actions.getConversationSuccess(response.data.conversation));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-    }
+    dispatch(slice.actions.STARTLOADING());
+    await chatApiService
+      .getConversation(conversationKey)
+      .then((response: AxiosResponse) => {
+        dispatch(slice.actions.GET_CONVERSATION(response.data.conversation));
+      })
+      .catch((error: AxiosError) => dispatch(slice.actions.HAS_ERROR(error)));
   };
 }
 
@@ -194,15 +215,13 @@ export function getConversation(conversationKey: string) {
 
 export function markConversationAsRead(conversationId: string) {
   return async () => {
-    dispatch(slice.actions.startLoading());
-    try {
-      await axiosInstance.get('/api/chat/conversation/mark-as-seen', {
-        params: { conversationId }
-      });
-      dispatch(slice.actions.markConversationAsReadSuccess({ conversationId }));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-    }
+    dispatch(slice.actions.STARTLOADING());
+    await chatApiService
+      .markConversationAsRead(conversationId)
+      .then(() => {
+        dispatch(slice.actions.MARK_CONVERSATION_AS_READ({ conversationId }));
+      })
+      .catch((error: AxiosError) => dispatch(slice.actions.HAS_ERROR(error)));
   };
 }
 
@@ -210,14 +229,14 @@ export function markConversationAsRead(conversationId: string) {
 
 export function getParticipants(conversationKey: string) {
   return async () => {
-    dispatch(slice.actions.startLoading());
-    try {
-      const response = await axiosInstance.get('/api/chat/participants', {
-        params: { conversationKey }
+    dispatch(slice.actions.STARTLOADING());
+    await chatApiService
+      .getParticipants(conversationKey)
+      .then((response: AxiosResponse) => {
+        dispatch(slice.actions.GET_PARTICIPANTS(response.data.participants));
+      })
+      .catch((error: AxiosError) => {
+        dispatch(slice.actions.HAS_ERROR(error));
       });
-      dispatch(slice.actions.getParticipantsSuccess(response.data.participants));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error));
-    }
   };
 }

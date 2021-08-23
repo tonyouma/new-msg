@@ -1,10 +1,9 @@
 // material
-import {
-  Theme,
-  useTheme,
-  experimentalStyled as styled
-} from "@material-ui/core/styles";
 import { BoxProps } from "@material-ui/core";
+import {
+  experimentalStyled as styled, Theme,
+  useTheme
+} from "@material-ui/core/styles";
 
 // ----------------------------------------------------------------------
 
@@ -92,17 +91,18 @@ const RootStyle = styled("span")(
 
 // ----------------------------------------------------------------------
 
-interface BadgeStatusProps extends BoxProps {
+interface IStatusProps extends BoxProps {
   size?: BadgeSize;
   status?: BadgeStatusEnum;
 }
-
-export default function BadgeStatus({
+const BadgeStatus: React.FC<IStatusProps> = ({
   size = "medium",
   status = "offline",
   sx
-}: BadgeStatusProps) {
+}: IStatusProps) => {
   const theme = useTheme();
 
   return <RootStyle styleProps={{ status, size }} sx={sx} theme={theme} />;
 }
+
+export default BadgeStatus

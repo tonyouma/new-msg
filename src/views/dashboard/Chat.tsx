@@ -1,15 +1,14 @@
-import { useEffect } from 'react';
-import styled from 'styled-components'
 // material
-import { Card, Container } from '@material-ui/core';
-// redux
-import { useDispatch } from '../../store/store';
-import { getConversations, getContacts } from '../../store/slices/chat';
-// routes
-// components
-import { ChatSidebar, ChatWindow } from '../../components/_dashboard/chat';
+import { Card, Container } from "@material-ui/core";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
+import ChatSidebar from "../../components/_dashboard/chat/ChatSidebar";
+import ChatWindow from "../../components/_dashboard/chat/ChatWindow";
+import { getContacts, getConversations } from "../../store/slices/chat";
+// import { getContacts, getConversations } from '../../store/actions/chat';
 
-// ----------------------------------------------------------------------
+// redux
 const StyledCard = styled(Card)`
   height: 80vh;
   display: flex;
@@ -19,7 +18,7 @@ const StyledCard = styled(Card)`
   margin-bottom: 40px;
 `;
 
-export default function Chat() {
+const Chat: React.FC<{}> = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,4 +36,6 @@ export default function Chat() {
       </Container>
     </>
   );
-}
+};
+
+export default Chat;

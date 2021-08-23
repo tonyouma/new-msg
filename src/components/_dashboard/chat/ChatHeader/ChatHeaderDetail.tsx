@@ -1,25 +1,15 @@
 import arrowIosForwardFill from '@iconify/icons-eva/arrow-ios-forward-fill';
 import { Icon } from '@iconify/react';
-import { Avatar, AvatarGroup, Box, IconButton, Link, Typography } from '@material-ui/core';
-// material
-import { experimentalStyled as styled } from '@material-ui/core/styles';
+import { Avatar, AvatarGroup, Badge, Box, IconButton, Link, Typography } from '@material-ui/core';
 import { Flag as FlagIcon, Share2 as ShareIcon, Trash2 as DeleteIcon } from "react-feather";
-// @types
-import { Participant } from '../../../models/chat';
-//
-import BadgeStatus from '../../BadgeStatus';
+import { Participant } from '../../../../models/chat';
+import BadgeStatus from '../../../BadgeStatus';
+import { HeaderAvatar, StyledContainer } from '../styles';
 
-// ----------------------------------------------------------------------
+interface IProps {
+  participants: Participant[];
+}
 
-const RootStyle = styled('div')(({ theme }) => ({
-  flexShrink: 0,
-  minHeight: 92,
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(0, 3)
-}));
-
-// ----------------------------------------------------------------------
 
 function OneAvatar({ participants }: { participants: Participant[] }) {
   const participant = [...participants][0];
@@ -30,15 +20,23 @@ function OneAvatar({ participants }: { participants: Participant[] }) {
   return (
     <Box style={{ display: 'flex', alignItems: 'center' }}>
       <Box style={{ position: 'relative' }}>
-        <Avatar src={participant.avatar} alt={participant.name} />
-        <BadgeStatus
-          status={participant.status}
-          style={{ position: 'absolute', right: 2, bottom: 2 }}
-        />
-      </Box>
-      <Box style={{ marginLeft: 2 }}>
-        <Typography variant="subtitle2">{participant.name}</Typography>
+        <Badge
+          overlap="circular"
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          badgeContent={<BadgeStatus
+            status={participant.status}
+          />}
+        >
+          <HeaderAvatar src={participant.avatar} alt={participant.name} />
+        </Badge>
 
+
+      </Box>
+      <Box style={{ marginLeft: 15 }}>
+        <Typography variant="subtitle2">{participant.name}</Typography>
         <Typography variant="body2" style={{ color: 'text.secondary' }}>
           {participant.position}
         </Typography>
@@ -65,7 +63,7 @@ function GroupAvatar({ participants }: { participants: Participant[] }) {
         underline="none"
         component="button"
         color="text.secondary"
-        onClick={() => {}}
+        onClick={() => { }}
       >
         <Box style={{ display: 'flex', alignItems: 'center' }}>
           {participants.length} persons
@@ -76,11 +74,12 @@ function GroupAvatar({ participants }: { participants: Participant[] }) {
   );
 }
 
-export default function ChatHeaderDetail({ participants }: { participants: Participant[] }) {
+const ChatHeaderDetail: React.FC<IProps> = (props) => {
+  const { participants } = props;
   const isGroup = participants.length > 1;
 
   return (
-    <RootStyle>
+    <StyledContainer>
       {isGroup ? (
         <GroupAvatar participants={participants} />
       ) : (
@@ -88,7 +87,7 @@ export default function ChatHeaderDetail({ participants }: { participants: Parti
       )}
 
       <Box style={{ flexGrow: 1 }} />
-     <IconButton>
+      <IconButton>
         <FlagIcon />
       </IconButton>
       <IconButton>
@@ -97,6 +96,8 @@ export default function ChatHeaderDetail({ participants }: { participants: Parti
       <IconButton>
         <DeleteIcon />
       </IconButton>
-    </RootStyle>
+    </StyledContainer>
   );
 }
+
+export default ChatHeaderDetail

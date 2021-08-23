@@ -1,40 +1,8 @@
-import { Avatar, Box, Typography } from '@material-ui/core';
-// material
-import { experimentalStyled as styled } from '@material-ui/core/styles';
-import { formatDistanceToNowStrict } from 'date-fns';
-// @types
+import { Box, Typography } from '@material-ui/core';
+import { format } from 'date-fns';
 import { Conversation, Message } from '../../../../models/chat';
+import { ChatItemWrapper, InfoText, MessageContentStyle, MessageImgStyle, StyledChatAvatar, StyledTimeStamp } from '../styles';
 
-// ----------------------------------------------------------------------
-
-const RootStyle = styled('div')(({ theme }) => ({
-  display: 'flex',
-  marginBottom: theme.spacing(3)
-}));
-
-const ContentStyle = styled('div')(({ theme }) => ({
-  maxWidth: 320,
-  padding: theme.spacing(1.5),
-  marginTop: theme.spacing(0.5),
-  borderRadius: theme.shape.borderRadius,
-}));
-
-const InfoStyle = styled(Typography)(({ theme }) => ({
-  display: 'flex',
-  marginBottom: theme.spacing(0.75),
-  color: theme.palette.text.secondary
-}));
-
-const MessageImgStyle = styled('img')(({ theme }) => ({
-  height: 200,
-  minWidth: 296,
-  width: '100%',
-  cursor: 'pointer',
-  objectFit: 'cover',
-  borderRadius: theme.shape.borderRadius
-}));
-
-// ----------------------------------------------------------------------
 
 type ChatMessageItemProps = {
   message: Message;
@@ -42,11 +10,8 @@ type ChatMessageItemProps = {
   onOpenLightbox: (value: string) => void;
 };
 
-export default function ChatMessageItem({
-  message,
-  conversation,
-  onOpenLightbox
-}: ChatMessageItemProps) {
+const ChatMessageItem: React.FC<ChatMessageItemProps> = (props) => {
+  const { message, conversation, onOpenLightbox } = props
   const sender = conversation.participants.find(
     (participant) => participant.id === message.senderId
   );
@@ -57,10 +22,11 @@ export default function ChatMessageItem({
 
   const isMe = senderDetails.type === 'me';
   const isImage = message.contentType === 'image';
-  const firstName = senderDetails.name && senderDetails.name.split(' ')[0];
+  const senderName = senderDetails.name
+  const timeStamp = format(new Date(message.createdAt), " h:mm");
 
   return (
-    <RootStyle>
+    <ChatItemWrapper>
       <Box
         style={{
           display: 'flex',
@@ -69,26 +35,25 @@ export default function ChatMessageItem({
           })
         }}
       >
-        {senderDetails.type !== 'me' && (
-          <Avatar
-            alt={senderDetails.name}
-            src={senderDetails.avatar}
-            style={{ width: 32, height: 32 }}
-          />
-        )}
-
         <Box style={{ marginLeft: 2 }}>
-          <InfoStyle noWrap variant="caption" style={{ ...(isMe && { justifyContent: 'flex-end' }) }}>
-            {!isMe && `${firstName},`}&nbsp;
-            {formatDistanceToNowStrict(new Date(message.createdAt), {
-              addSuffix: true
-            })}
-          </InfoStyle>
-
-          <ContentStyle
+          <Box style={{ display: 'flex', alignItems: 'center' }}>
+            {senderDetails.type !== 'me' && (
+              <StyledChatAvatar
+                alt={senderDetails.name}
+                src={senderDetails.avatar}
+              />
+            )}
+            <InfoText noWrap style={{ ...(isMe && { justifyContent: 'flex-end' }) }}>
+              {!isMe && `${senderName}`}
+            </InfoText>
+          </Box>
+          <MessageContentStyle
             style={{
               ...(isMe && {
-                color: 'grey.800',
+                color: '#333',
+                marginLeft: 0,
+                backgroundColor: '#bcdcff',
+
               })
             }}
           >
@@ -99,11 +64,14 @@ export default function ChatMessageItem({
                 onClick={() => onOpenLightbox(message.body)}
               />
             ) : (
-              <Typography variant="body2">{message.body}</Typography>
+              <Typography>{message.body}</Typography>
             )}
-          </ContentStyle>
+            <StyledTimeStamp variant="caption" >{timeStamp}</StyledTimeStamp>
+          </MessageContentStyle>
         </Box>
       </Box>
-    </RootStyle>
+    </ChatItemWrapper>
   );
 }
+
+export default ChatMessageItem

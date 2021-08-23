@@ -1,35 +1,13 @@
 import {
-  ClickAwayListener, FormControl,
-  InputAdornment, OutlinedInput
-} from '@material-ui/core';
-// material
+  ClickAwayListener,
+  FormControl,
+  InputAdornment,
+} from "@material-ui/core";
 import Icon from "@material-ui/core/Icon";
 import { Search as SearchIcon } from "react-feather";
-import styled from "styled-components";
+import { StyledSearchInput } from "../styles";
+// import { StyledSearchInput } from './styles';
 
-// ----------------------------------------------------------------------
-
-// const useStyles = makeStyles(() => ({
-//   search: {
-//     backgroundColor: "#fff",
-//     borderRadius: 5,
-//     fontSize: 16,
-//     padding: "1px 15px",
-//     // boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.07)",
-//     border: "none"
-//   }
-// }));
-
-const StyledInput = styled(OutlinedInput)`
-background-color: #fff;
-    border-radius: 5px;
-    font-size: 16px;
-    padding: 3px 15px;
-    /* box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.07); */
-    border: none
-`
-
-// ----------------------------------------------------------------------
 type ISearchProps = {
   query: string;
   onChange: React.ChangeEventHandler;
@@ -44,25 +22,23 @@ const AdornmentComponent = (props: any) => (
 );
 
 const ChatContactSearch: React.FC<ISearchProps> = (props) => {
-
-  const { query, onChange, onFocus, onClickAway } = props
-
-    // const classes = useStyles();
+  const { query, onChange, onFocus, onClickAway } = props;
 
   return (
     <ClickAwayListener onClickAway={onClickAway}>
-        <FormControl fullWidth size="small">
-          <StyledInput
-            value={query}
-            onFocus={onFocus}
-            onChange={onChange}
-            placeholder="Search contacts..."
-            // className={classes.search}
-            startAdornment={<AdornmentComponent icon={<SearchIcon size="20"/>} />}
-          />
-        </FormControl>
+      <FormControl fullWidth size="small">
+        <StyledSearchInput
+          value={query}
+          onFocus={onFocus}
+          onChange={onChange}
+          placeholder="Search contacts..."
+          startAdornment={
+            <AdornmentComponent icon={<SearchIcon size="20" />} />
+          }
+        />
+      </FormControl>
     </ClickAwayListener>
   );
-}
+};
 
 export default ChatContactSearch;
