@@ -1,5 +1,5 @@
 import { useRoutes } from "react-router-dom";
-import Chat from "../views/dashboard/Chat";
+import Chat from "../views/ChatView";
 
 // ----------------------------------------------------------------------
 
