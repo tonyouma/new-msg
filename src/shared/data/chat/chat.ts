@@ -3,15 +3,13 @@ import { sub } from "date-fns";
 import faker from "faker";
 import { isEmpty, sample, xor } from "lodash";
 import { Contact, Conversation, Message } from "../../../models/chat";
-// @types
 import { mock } from "../../../utils/axios";
-// utils
-// import mock from './mock';
-import { mockImgAvatar, mockImgFeed } from "../../../utils/mockImages";
-// import MockAdapter from 'axios-mock-adapter';
 
-// ----------------------------------------------------------------------
-// const mock = new MockAdapter(axios);
+const mockImgFeed = (index: number) =>
+  `/static/mock-images/feeds/feed_${index}.jpg`;
+
+const mockImgAvatar = (index: number) =>
+  `/static/mock-images/avatars/avatar_${index}.jpg`;
 
 const createId = (index: string | number) =>
   `8864c717-587d-472a-929a-8e5f298024da-${index}`;

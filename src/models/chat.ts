@@ -22,14 +22,14 @@ export type Participant = {
   phone?: string;
   email?: string;
   lastActivity?: Date;
-  status?: 'online' | 'offline' | 'away' | 'busy';
+  status?: "online" | "offline" | "away" | "busy";
   position?: string;
 };
 
 export type TextMessage = {
   id: string;
   body: string;
-  contentType: 'text';
+  contentType: "text";
   attachments: string[];
   createdAt: Date;
   senderId: string;
@@ -38,7 +38,7 @@ export type TextMessage = {
 export type ImageMessage = {
   id: string;
   body: string;
-  contentType: 'image';
+  contentType: "image";
   attachments: string[];
   createdAt: Date;
   senderId: string;
@@ -58,7 +58,7 @@ export type SendMessage = {
   conversationId: string;
   messageId: string;
   message: string;
-  contentType: 'text';
+  contentType: "text";
   attachments: string[];
   createdAt: Date;
   senderId: string;
